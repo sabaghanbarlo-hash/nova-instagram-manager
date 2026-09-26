@@ -1,1 +1,322 @@
-__REPLACE0__
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Café — Instagram Studio</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">☕</div>
+      <div class="brand-text">
+        <strong>Nova Café</strong>
+        <span>Instagram Studio</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-view="overview">
+        <span class="nav-ico">◇</span> Overview
+      </button>
+      <button class="nav-item" data-view="calendar">
+        <span class="nav-ico">▦</span> Content Calendar
+      </button>
+      <button class="nav-item" data-view="captions">
+        <span class="nav-ico">✎</span> Caption Assistant
+      </button>
+      <button class="nav-item" data-view="hashtags">
+        <span class="nav-ico">#</span> Hashtag Tool
+      </button>
+      <button class="nav-item" data-view="inbox">
+        <span class="nav-ico">✉</span> Inbox
+        <span class="nav-badge" id="inboxBadge">0</span>
+      </button>
+      <button class="nav-item" data-view="analytics">
+        <span class="nav-ico">◈</span> Analytics
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="demo-pill">DEMO WORKSPACE</div>
+      <p>Portfolio demonstration by <a href="https://github.com/sabaghanbarlo-hash" target="_blank" rel="noopener">Saba</a>. No paid APIs — 100% local &amp; free.</p>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1 id="viewTitle">Overview</h1>
+        <p id="viewSubtitle">Everything happening on @nova.cafe, at a glance.</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="resetDemoBtn" title="Restore sample data">↺ Reset demo data</button>
+        <button class="btn btn-primary" id="newPostBtn">+ New Post</button>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="view" id="view-overview">
+      <div class="stat-grid" id="overviewStats"></div>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Upcoming posts</h3>
+            <button class="link-btn" data-goto="calendar">Open calendar →</button>
+          </div>
+          <div id="upcomingList" class="upcoming-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Inbox snapshot</h3>
+            <button class="link-btn" data-goto="inbox">Open inbox →</button>
+          </div>
+          <div id="inboxSnapshot" class="inbox-snapshot"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Active campaigns</h3>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="campaignTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section class="view hidden" id="view-calendar">
+      <div class="calendar-toolbar">
+        <div class="seg" id="calModeToggle">
+          <button class="seg-btn active" data-mode="month">Month</button>
+          <button class="seg-btn" data-mode="week">Week</button>
+        </div>
+        <div class="cal-nav">
+          <button class="icon-btn" id="calPrev">‹</button>
+          <span id="calLabel" class="cal-label"></span>
+          <button class="icon-btn" id="calNext">›</button>
+          <button class="btn btn-ghost btn-sm" id="calToday">Today</button>
+        </div>
+        <div class="legend" id="calLegend"></div>
+      </div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+    </section>
+
+    <!-- CAPTION ASSISTANT -->
+    <section class="view hidden" id="view-captions">
+      <div class="panel-grid two">
+        <div class="panel">
+          <h3>Generate captions</h3>
+          <p class="muted">Local template engine — no external AI calls, works fully offline.</p>
+          <div class="form-grid">
+            <label>Business type
+              <select id="capBusiness">
+                <option>Café / Coffee Shop</option>
+                <option>Restaurant</option>
+                <option>Bakery</option>
+                <option>Beauty Salon</option>
+                <option>Retail Boutique</option>
+                <option>Fitness Studio</option>
+              </select>
+            </label>
+            <label>Topic
+              <input type="text" id="capTopic" placeholder="e.g. new autumn pumpkin latte">
+            </label>
+            <label>Tone
+              <select id="capTone">
+                <option>Friendly</option>
+                <option>Professional</option>
+                <option>Funny</option>
+                <option>Gen Z</option>
+                <option>Luxury</option>
+                <option>Educational</option>
+              </select>
+            </label>
+            <label>Audience
+              <input type="text" id="capAudience" placeholder="e.g. local students &amp; remote workers">
+            </label>
+            <label>Call to action
+              <select id="capCTA">
+                <option>Visit us today</option>
+                <option>Tag a friend</option>
+                <option>Order now / link in bio</option>
+                <option>Comment below</option>
+                <option>Save this post</option>
+                <option>DM us to book</option>
+              </select>
+            </label>
+          </div>
+          <button class="btn btn-primary" id="genCaptionsBtn">✨ Generate captions</button>
+        </div>
+
+        <div class="panel">
+          <h3>Results</h3>
+          <div id="captionResults" class="caption-results">
+            <p class="muted">Fill in the form and generate to see caption options here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HASHTAG TOOL -->
+    <section class="view hidden" id="view-hashtags">
+      <div class="panel-grid two">
+        <div class="panel">
+          <h3>Hashtag generator</h3>
+          <p class="muted">Pulled from a local hashtag dataset — grouped by reach so you can mix broad and niche tags.</p>
+          <div class="form-grid">
+            <label>Category
+              <select id="hashCategory"></select>
+            </label>
+            <label>Add a custom keyword (optional)
+              <input type="text" id="hashKeyword" placeholder="e.g. karaj">
+            </label>
+          </div>
+          <button class="btn btn-primary" id="genHashtagsBtn">Generate hashtag set</button>
+        </div>
+        <div class="panel">
+          <h3>Your set</h3>
+          <div id="hashtagResults" class="hashtag-results">
+            <p class="muted">Choose a category and generate to see grouped hashtags.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INBOX -->
+    <section class="view hidden" id="view-inbox">
+      <div class="inbox-layout">
+        <div class="inbox-list-col">
+          <div class="inbox-list-head">
+            <h3>Conversations</h3>
+            <select id="inboxFilter">
+              <option value="all">All</option>
+              <option value="unread">Unread</option>
+              <option value="leads">Leads</option>
+            </select>
+          </div>
+          <div id="threadList" class="thread-list"></div>
+        </div>
+
+        <div class="inbox-thread-col" id="threadPanel">
+          <p class="muted center-pad">Select a conversation to view it.</p>
+        </div>
+
+        <div class="inbox-rules-col">
+          <div class="panel">
+            <h3>Automation rules</h3>
+            <p class="muted small">Local keyword detection — simulates auto-replies.</p>
+            <ul class="rule-list" id="ruleList"></ul>
+          </div>
+          <div class="panel">
+            <h3>Try it</h3>
+            <p class="muted small">Type a message like a customer would send.</p>
+            <textarea id="simulateInput" rows="3" placeholder="e.g. what are your hours?"></textarea>
+            <button class="btn btn-secondary btn-sm" id="simulateBtn">Run automation</button>
+            <div id="simulateResult" class="simulate-result"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="view hidden" id="view-analytics">
+      <p class="demo-flag">📊 Demo / sample analytics — for portfolio illustration only, not connected to a real Instagram account.</p>
+      <div class="stat-grid" id="analyticsStats"></div>
+
+      <div class="panel-grid two">
+        <div class="panel">
+          <h3>Engagement, last 7 days</h3>
+          <div class="bar-chart" id="engagementChart"></div>
+        </div>
+        <div class="panel">
+          <h3>Content type performance</h3>
+          <div class="bar-chart horizontal" id="contentTypeChart"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Campaign tracking</h3>
+          <button class="btn btn-ghost btn-sm" id="addCampaignBtn">+ New campaign</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="campaignTableFull"></table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Post Builder Modal -->
+<div class="modal-backdrop hidden" id="postModalBackdrop">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="postModalTitle">New post</h3>
+      <button class="icon-btn" id="closePostModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="postId">
+      <label>Caption
+        <textarea id="postCaption" rows="4" placeholder="Write your caption..."></textarea>
+      </label>
+      <label>Hashtags
+        <textarea id="postHashtags" rows="2" placeholder="#novacafe #coffee ..."></textarea>
+      </label>
+      <div class="form-grid">
+        <label>Content type
+          <select id="postType">
+            <option>Reel</option>
+            <option>Carousel</option>
+            <option>Image</option>
+            <option>Story</option>
+            <option>Promotional post</option>
+          </select>
+        </label>
+        <label>Status
+          <select id="postStatus">
+            <option>Draft</option>
+            <option>Scheduled</option>
+            <option>Published</option>
+          </select>
+        </label>
+        <label>Scheduled date
+          <input type="date" id="postDate">
+        </label>
+        <label>Scheduled time
+          <input type="time" id="postTime">
+        </label>
+        <label>Campaign
+          <input type="text" id="postCampaign" placeholder="e.g. Autumn Launch">
+        </label>
+        <label>Notes
+          <input type="text" id="postNotes" placeholder="internal notes...">
+        </label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm hidden" id="deletePostBtn">Delete</button>
+      <div class="spacer"></div>
+      <button class="btn btn-ghost" id="cancelPostBtn">Cancel</button>
+      <button class="btn btn-primary" id="savePostBtn">Save post</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
